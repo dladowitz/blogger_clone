@@ -1,5 +1,4 @@
 <h1>All Articles</h1>
-
 <ul>
   <% @articles.each do |article| %>
     <li>
@@ -7,6 +6,9 @@
     </li>
   <% end %>
 </ul>
-
+<br \>
+<%= link_to "Sorted by Date, limit: 4", articles_path(:order_by => 'created_at',:limit => 4) %>
+<%= link_to "Sorted by Title, limit: 6", articles_path(:order_by => 'title', :limit => 6 ) %>
+<%= link_to "Sorted by Word Count", articles_path(:order_by => 'word_count') %>
 <%= link_to "New Article", new_article_path, :class => "new_article" %>
 

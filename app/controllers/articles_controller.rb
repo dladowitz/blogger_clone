@@ -2,7 +2,12 @@ class ArticlesController < ApplicationController
   before_filter :require_login, :except => [:index, :show]
   
   def index
-    @articles = Article.all
+      
+    # @articles = Article.ordered_by(params[:order_by]).limit(params[:limit])
+    @articles = Article.only(params[:limit]).ordered_by(params[:order_by])
+    
+    
+
   end
 
   def show
@@ -16,7 +21,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(:title => params[:article][:title], :tag_list => params[:article][:tag_list], :body => params[:article][:body])
+    # @article = Article.new(:title => params[:article][:title], :tag_list => params[:article][:tag_list], :body => params[:article][:body])
+    @article = Article.new(params[:article])
+    @article.word_count =(params[:article][:body].split.length)
     puts "Here are the params you ordered: #{params}"
     warn "This is the object after initialization: #{@article.inspect}"
     
